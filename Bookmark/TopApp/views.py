@@ -9,6 +9,7 @@ from .models import AddBookmark,AddFolder
 from datetime import datetime
 from django.utils import timezone
 from bs4 import BeautifulSoup
+from .forms import AuthenticationFormLogin
 import requests
 
 def signInSignUp(request):
@@ -25,7 +26,7 @@ def signInSignUp(request):
                
              
             if request.POST.get('signin'): 
-                signIn = AuthenticationForm(request=request,data=request.POST)
+                signIn = AuthenticationFormLogin(request=request,data=request.POST)
                 if signIn.is_valid():
                     urss = signIn.cleaned_data['username']
                     pwdd = signIn.cleaned_data['password']
@@ -35,10 +36,10 @@ def signInSignUp(request):
                         login(request,user)
                         return HttpResponseRedirect('/mainPage/')
             else:
-                signIn = AuthenticationForm()
+                signIn = AuthenticationFormLogin()
         else:
             signUp = SignUp()
-            signIn = AuthenticationForm()
+            signIn = AuthenticationFormLogin()
         return render (request,'html/SignUp_SignIn.html',{'signUp':signUp,'signIn':signIn})
     else:
         return HttpResponseRedirect('/mainPage/')
