@@ -9,7 +9,7 @@ from .models import AddBookmark,AddFolder
 from datetime import datetime
 from django.utils import timezone
 from bs4 import BeautifulSoup
-from .forms import AuthenticationFormLogin
+from .forms import AuthenticationFormLogin,PasswordChangeFormUser
 import requests
 
 def signInSignUp(request):
@@ -55,6 +55,22 @@ def mainPage(request):
 def logout_function(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+
+def changePassword(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            changePasswordForm = PasswordChangeFormUser(user=request.user,data= request.POST)
+            if changePasswordForm.is_valid():
+                changePasswordForm.save()
+                messages.success(request,"Your password is changed successfully,")
+                return HttpResponseRedirect('/')
+                
+        else:
+            changePasswordForm = PasswordChangeFormUser(user=request.user)
+        return render(request,'html/changePassword.html',{'passwordForm':changePasswordForm})
+    else:
+        return HttpResponseRedirect('/')
 
 # def func2(request):
 #     if not request.user.is_authenticated:

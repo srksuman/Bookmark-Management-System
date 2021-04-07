@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from .models import AddBookmark,AddFolder
-from django.contrib.auth.forms import AuthenticationForm,UsernameField
+from django.contrib.auth.forms import AuthenticationForm,UsernameField,PasswordChangeForm
 from django.utils.translation import ugettext_lazy as _
 class SignUp(UserCreationForm):
     password1 = forms.CharField(label='Password',widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
@@ -35,3 +35,10 @@ class AddFolderForm(forms.ModelForm):
 class AuthenticationFormLogin(AuthenticationForm):
     username = UsernameField(widget=forms.TextInput(attrs={'class':'class','auto-focus':True,'placeholder':'username'}))
     password = forms.CharField(label=_("Password"),strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'current-password','class':'class','placeholder':'password'}))
+
+
+class PasswordChangeFormUser(PasswordChangeForm):
+    old_password = forms.CharField(label=_("Password"),strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'new-password','class':'class','placeholder':'old password'}))
+    new_password1 =forms.CharField(label=_("Password"),strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'new-password','class':'class','placeholder':'new password'})) 
+    new_password2 =forms.CharField(label=_("Password"),strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'new-password','class':'class','placeholder':'confirm password'})) 
+    
