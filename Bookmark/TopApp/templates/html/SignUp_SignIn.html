@@ -35,7 +35,7 @@
             <h2 class="title">Sign in</h2>
 
             <div class="input-field">
-              <i class="fas fa-envelope"></i>
+              <i class="fas fa-user"></i>
               {{signIn.username}} {{signIn.username.errors|striptags}}
             </div>
 
@@ -73,7 +73,7 @@
               </ul>
             </div>
           
-          <form action="" class="sign-up-form" method="post" novalidate >
+          <form action="" class="sign-up-form" method="post" id = "task-form" novalidate >
             {% csrf_token %}
             <h2 class="title">Sign up</h2>
 
@@ -108,7 +108,7 @@
               {% for error in signUp.non_field_errors %} {{error}} {% endfor %}
             </div>
 
-            <input type="submit" class="btn" value="Sign up" name="signup"  />
+            <input type="submit" class="btn" value="Sign up" name="signup" id="sign-up-btn2"  />
             </form>
             <p class="social-text">Or Sign up with social platforms</p>
 
@@ -158,7 +158,32 @@
         </div>
       </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.js" 
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
+            crossorigin="anonymous"></script>
+<script>
+ <script type="text/javascript">
+    $(document).on('submit','#task-form',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'/',
+            data:
+            {
+              username:$("#id_username").val(),
+                first_name:$("#id_first_name").val(),
+                last_name:$("#id_last_name").val(),
+                email:$("#id_email").val(),
+                password1:$("#id_password1").val(),
+                password2:$("#id_password2").val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            success:function(){
+                  alert('Saved');
+                    }
+            })
+        });
+</script>
     <script src="{% static 'js/signjavascript.js' %}"></script>
   </body>
 </html>
