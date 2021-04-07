@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="editprofile.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/editprofile.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
   </head>
   <body>
@@ -30,40 +31,44 @@
 <div class="container">
         <div class="forms-container">
           <div class="signin-signup">
-            <form action="#" class="sign-in-form">
-              <h2 class="title">Ashmita Devkota</h2>
+          <form action="" method="post" class="sign-in-form">
+            {% csrf_token %}
+              <h2 class="title">{{request.user.get_full_name}}</h2>
               <div class="input-field">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Username" />
+               {{profileChange.username}}
+{{profileChange.username.errors|striptags}}
               </div>
               <div class="input-field">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="First name" />
+               {{profileChange.first_name}}
+{{profileChange.first_name.errors|striptags}}
               </div>
 
                <div class="input-field">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Last name" />
+               {{profileChange.last_name}}
+{{profileChange.last_name.errors|striptags}}
               </div>
 
               <div class="input-field">
                 <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Email" />
+              {{profileChange.email}}
+{{profileChange.email.errors|striptags}}
               </div>
 
 
-<div>
+{% comment %} <div>
               <label class="switch">
   <input type="checkbox"> 
   <span class="slider round"> </span>
 </label>
-<label class="input">Active</label>  
-</div>
-
-
-       
-              <input type="submit" value="Update" class="btn solid" />
-
+<label class="input"></label>  
+</div> {% endcomment %}
+{{profileChange.is_active}}
+{{profileChange.is_active.errors|striptags}}
+<input type="submit" class="btn solid" value="Update" >     
+</form>
                       
           </div>
         </div>
@@ -71,15 +76,14 @@
         <div class="panels-container">
           <div class="panel right-panel">
             <div class="content">
-             <h2>Joined by User</h2> 
+             <h2>Joined by {{request.user.username}}</h2> 
               <p>
-              27th May 2020
+              {{joined_date}}
               </p>
     
             </div>
-            <img src="images/editprofile.svg" class="image" alt="" />
+            <img src="{% static 'images/editprofile.svg' %}" class="image" alt="" />
           </div>
-
     
             </div>
 
