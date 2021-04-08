@@ -72,36 +72,18 @@ def changePassword(request):
     else:
         return HttpResponseRedirect('/')
 
-# def func2(request):
-#     if not request.user.is_authenticated:
-#         if request.method == 'POST':
-#             signIn = AuthenticationForm(request=request,data=request.POST)
-#             if signIn.is_valid():
-#                 urss = signIn.cleaned_data['username']
-#                 pwdd = signIn.cleaned_data['password']
-#                 user = authenticate(username=urss,password=pwdd)
-#                 if user is not None:
-#                     messages.success(request,"Login successfull")
-#                     login(request,user)
-#                     return HttpResponseRedirect('/mainPage/')
-#         else:
-#             signIn = AuthenticationForm() 
-#         return render (request,'html/core2.html',{'signIn':signIn})
-#     else:
-#         return HttpResponseRedirect('/mainPage/')
-
-
-# def signInSignUp(request):
-#     if not request.user.is_authenticated:
-#         if request.method == "POST":
-#             signUp = SignUp(request.POST)
-#             if signUp.is_valid():
-#                 messages.success(request,"Account is created successfully " + request.POST['first_name']+" "+request.POST['last_name'])
-#                 signUp.save()
-#                 signUp = SignUp()   
-#         else:
-#             signUp = SignUp()
-            
-#         return render (request,'html/SignUp_SignIn.html',{'signUp':signUp})
-#     else:
-#         return HttpResponseRedirect('/mainPage/')
+def editProfile(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            change = UserChangeForm(instance = request.user,data=request.POST)
+            if change.is_valid():
+                change.save()
+        else:
+            change = UserChangeForm(instance = request.user)
+        if request.user.is_active == 1:
+            ac = 'active'
+        else:
+            ac = 'offline'
+        return render(request,'html/editProfile.html',{'name':request.user.get_full_name,'profileChange':change,'joined_date':request.user.date_joined,'last_loggedIn':request.user.last_login,'active':ac})
+    else:
+        return HttpResponseRedirect('/')
