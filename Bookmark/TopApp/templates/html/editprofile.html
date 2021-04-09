@@ -15,13 +15,13 @@
     </label>
     <div class="sidebar">
     <header>
-    <a href="main.html">BOOKMARK</a>
+    <a href="{% url 'mainpage' %}">BOOKMARK</a>
     </header>
   <ul>
-<li><a href="#"><i class="fas fa-user"></i>Edit Profile</a></li>
-<li><a href="addbookmark.html"><i class="fas fa-bookmark"></i>Add Bookmark</a></li>
-<li><a href="changepassword.html"><i class="fas fa-lock"></i>Change Password</a></li>
-<li><a href="#"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+    <li><a href="{% url 'editProfile' %}"><i class="fas fa-user"></i>Edit Profile</a></li>
+    <li><a href="{% url 'addBookmark' %}"><i class="fas fa-bookmark"></i>Add Bookmark</a></li>
+    <li><a href="{% url 'changepassword' %}"><i class="fas fa-lock"></i>Change Password</a></li>
+    <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
 
 </ul>
 </div>

@@ -271,3 +271,9 @@ form .btn button{
     .upd{
       background-color: black;
     }
+
+  #urlgotoback{
+text-decoration: none;
+color: #fff !important;
+list-style: none !important;
+    }

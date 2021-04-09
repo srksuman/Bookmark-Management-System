@@ -87,3 +87,52 @@ def editProfile(request):
         return render(request,'html/editProfile.html',{'name':request.user.get_full_name,'profileChange':change,'joined_date':request.user.date_joined,'last_loggedIn':request.user.last_login,'active':ac})
     else:
         return HttpResponseRedirect('/')
+
+
+def addBookMark(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            folderForm = AddFolderForm(request.POST)
+            if folderForm.is_valid():
+                user_name = request.user
+                fullname = request.user.get_full_name().capitalize()
+                foldername = folderForm.cleaned_data['folderName']
+                folderCreated = timezone.now()
+                visibility = folderForm.cleaned_data['public']
+                datas = AddFolder(user_token=user_name,userFullname=fullname,folderName=foldername,folderCreatedTime=folderCreated,public = visibility)
+                datas.save()
+        else:
+            folderForm = AddFolderForm()
+        fullname = request.user.get_full_name()
+        urs = request.user.username
+        # print(User.objects.filter(username=urs))
+        name = AddFolder.objects.filter(user_token=request.user)
+        return render(request,'html/addBookmark.html',{'folder':folderForm,'foldername':name})
+    else:
+        return HttpResponseRedirect('/login/')
+
+
+def bookMarks(request,id):
+    if request.user.is_authenticated:
+        folderId_side = AddFolder.objects.filter(ids = id)
+        folderId=''
+        for particular in folderId_side:
+            folderId = particular
+        
+        show_present_bookmarks = AddBookmark.objects.filter(folderId=folderId)
+        if request.method == 'POST':
+            urlForm = AddBookmarkForm(request.POST)
+            if urlForm.is_valid():
+                bookmarkLabel = urlForm.cleaned_data['bookmarkLabel']
+                bookmarkUrl = urlForm.cleaned_data['bookmarkUrl']
+                get_data = requests.get(bookmarkUrl)
+                soup = BeautifulSoup(get_data.content,'lxml')
+                bookmarkTitle = soup.title.get_text()
+                save_bookmark = AddBookmark(folderId=folderId,bookmarkLabel=bookmarkLabel,bookmarkUrl=bookmarkUrl,bookmarkTitle=bookmarkTitle)
+                save_bookmark.save()
+                urlForm =AddBookmarkForm()
+        else:
+            urlForm = AddBookmarkForm()
+        return render (request,'html/bookmarks.html',{'id':id,'addUrls':urlForm,'showBookmarks':show_present_bookmarks})
+    else:
+        return HttpResponseRedirect('/')

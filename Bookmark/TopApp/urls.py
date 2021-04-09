@@ -6,4 +6,6 @@ urlpatterns = [
       path('logout/',views.logout_function,name="logout"),
       path('changePassword/',views.changePassword,name="changepassword"),
       path('editprofile/',views.editProfile,name="editProfile"),
+      path('addBookmark/',views.addBookMark,name='addBookmark'),
+      path('bookmarks/<int:id>/',views.bookMarks,name='bookmarks'),
 ]
