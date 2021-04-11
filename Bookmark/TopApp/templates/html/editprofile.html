@@ -58,15 +58,24 @@
               </div>
 
 
-{% comment %} <div>
+<!-- {% comment %} <div>
               <label class="switch">
   <input type="checkbox"> 
   <span class="slider round"> </span>
 </label>
 <label class="input"></label>  
-</div> {% endcomment %}
-{{profileChange.is_active}}
-{{profileChange.is_active.errors|striptags}}
+</div> {% endcomment %} -->
+<div class="data">
+  <label class="switch">
+    {{profileChange.is_active}}
+    {{profileChange.is_active.errors|striptags}}
+<span class="slider round"> </span>
+</label>
+<label class="input">Active</label> 
+</div>
+
+
+
 <input type="submit" class="btn solid" value="Update" >     
 </form>
                       

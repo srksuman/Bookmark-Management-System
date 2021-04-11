@@ -55,16 +55,12 @@
                 {{folder.public}}
   <span class="slider round"> </span>
 </label>
-<label class="input">Active</label> 
+<label class="input">Public</label> 
 </div>
-
 <div class="btn">
 <div class="inner"></div>
-
 <button type="submit">Create</button>
 </div>
-
-
 </form>
 </div>
 </div>
@@ -79,7 +75,7 @@
                  <div class="col-12 ">
                      <h2 class="card-title ">
                      
-                        <a href="{% url 'bookmarks' name.ids %}"><div class="name">FolderName:-{{name.folderName}}<b></b></div></a>
+                        <a href="{% url 'bookmarks' name.ids %}"><div class="name">{{name.folderName}}<b></b></div></a>
                      </h2>
                  </div>
                  <div class="col">
