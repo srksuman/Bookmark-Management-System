@@ -8,4 +8,8 @@ urlpatterns = [
       path('editprofile/',views.editProfile,name="editProfile"),
       path('addBookmark/',views.addBookMark,name='addBookmark'),
       path('bookmarks/<int:id>/',views.bookMarks,name='bookmarks'),
+      path('deleteUrl/<int:id_folder>/<int:id_url>',views.deleteUrl,name='deleteUrl'),
+      path('updateurl/<int:id_folder>/<int:id_url>/<str:label>/',views.updateUrl,name='updateurl'),
+
+
 ]

@@ -126,7 +126,7 @@ def bookMarks(request,id):
                 bookmarkLabel = urlForm.cleaned_data['bookmarkLabel']
                 bookmarkUrl = urlForm.cleaned_data['bookmarkUrl']
                 get_data = requests.get(bookmarkUrl)
-                soup = BeautifulSoup(get_data.content,'lxml')
+                soup = BeautifulSoup(get_data.content,'html.parser')
                 bookmarkTitle = soup.title.get_text()
                 save_bookmark = AddBookmark(folderId=folderId,bookmarkLabel=bookmarkLabel,bookmarkUrl=bookmarkUrl,bookmarkTitle=bookmarkTitle)
                 save_bookmark.save()
@@ -136,3 +136,31 @@ def bookMarks(request,id):
         return render (request,'html/bookmarks.html',{'id':id,'addUrls':urlForm,'showBookmarks':show_present_bookmarks})
     else:
         return HttpResponseRedirect('/')
+
+def deleteUrl(request,id_folder,id_url):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            delt = AddBookmark.objects.get(pk=id_url)
+            delt.delete()
+            redirect =  f'/bookmarks/{id_folder}/'
+            return HttpResponseRedirect(redirect)
+    else:
+        return HttpResponseRedirect('/login/')
+
+def updateUrl(request,id_folder,id_url,label):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            folder = AddFolder.objects.get(pk=id_folder)
+            urlget = request.POST['urlgets']
+            
+            get_data = requests.get(urlget)
+            soup = BeautifulSoup(get_data.content,'lxml')
+            bookmarkTitle = soup.title.get_text()
+            keys = AddBookmark(ids=id_url,folderId=folder,bookmarkLabel=label,bookmarkTitle=bookmarkTitle,bookmarkUrl=urlget)
+            keys.save()
+            
+            updateForm = AddBookmarkForm()
+            redirect =  f'/bookmarks/{id_folder}/'
+            return HttpResponseRedirect(redirect)
+    else:
+        return HttpResponseRedirect('/login/')
