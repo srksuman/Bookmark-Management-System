@@ -51,7 +51,20 @@
       <button class="btn btn-primary rounded-pill " onclick="myFunction({{shows.ids}})" onmouseout="outFunc()" class="tooltip"> COPY </button>
       <button class="btn btn-info text-dark rounded-pill" >  <a href="{{shows.bookmarkUrl}}" target="_blank" id="urlgotoback" style="color: aliceblue;">GO TO</a> </button>
       <button class="btn btn-secondary rounded-pill">  UPDATE </button>
-      <button class="btn btn-danger rounded-pill">  DELETE </button>
+
+    <form action="{% url 'updateurl' id shows.ids shows.bookmarkLabel  %}" method="post">
+        {% csrf_token %}
+        <input type="text" value={{shows.bookmarkUrl}} id={{shows.ids}}  class="inputTypeUrl" name="urlgets">
+        
+        <input type="submit" value="Update" name = "updateurl">
+        </form>
+
+
+      <form action="{% url 'deleteUrl' id shows.ids  %}" method="post">
+{% csrf_token %}
+<input type="submit" value="Delete" class="btn btn-danger rounded-pill">
+</form>
+      {% comment %} <button >  DELETE </button> {% endcomment %}
       </td>
     </tr>
     {% endfor %}
