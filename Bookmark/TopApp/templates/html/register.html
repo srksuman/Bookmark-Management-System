@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 {% load static %}
+{% load socialaccount %} {% providers_media_js %}
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -92,7 +93,9 @@
                 <ul class="social-network social-circle">
                     {% comment %} <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
                     <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li> {% endcomment %}
-                    <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google"></i></a></li>
+                    <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google"></i></a>
+                     <a href="{%  provider_login_url 'google' %}">Google</a>
+                    </li>
                 </ul>
             </div> 
 

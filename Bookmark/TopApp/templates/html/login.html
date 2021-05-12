@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load socialaccount %} {% providers_media_js %}
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -82,6 +83,7 @@
                   <a href="#" class="icoGoogle text-center" title="Google +"
                     ><i class="fa fa-google"></i
                   ></a>
+                  <a href="{%  provider_login_url 'google' %}">Google</a>
                 </li>
               </ul>
             </div>
