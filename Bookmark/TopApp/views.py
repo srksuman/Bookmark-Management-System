@@ -164,3 +164,14 @@ def updateUrl(request,id_folder,id_url,label):
             return HttpResponseRedirect(redirect)
     else:
         return HttpResponseRedirect('/login/')
+
+def deleteFolder(request,id_folder):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            delt = AddFolder.objects.get(pk=id_folder)
+            delt.delete()
+            print("suman")
+            print(id_folder)
+            return HttpResponseRedirect("/addBookmark/")
+    else:
+        return HttpResponseRedirect("/login/")

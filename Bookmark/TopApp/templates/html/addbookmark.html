@@ -95,9 +95,13 @@
                     ><div class="name"><b>{{name.folderName}}</b></div></a
                   >
 
-                  <div class="btns">
-                    <a class="button" href=" " role="button">Edit  /</a>
-                    <a class="button" href=" " role="button">delete</a>
+                  <div class="btns d-inline %}">
+                  
+                    <form action="{% url 'deleteFolder' name.ids %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" >
+                    </form>
+                    <a class="button" href=" " role="button">Edit</a>
                   </div>
                 </div>
               </div>
