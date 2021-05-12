@@ -212,7 +212,16 @@ def loginFunction(request):
 
 def registerFunction(request):
     if not request.user.is_authenticated:
-        return render(request,"html/register.html")
+        if request.method == "POST":
+            signUp = SignUp(request.POST)
+            if signUp.is_valid():
+                messages.success(request,"Account is created successfully " + request.POST['first_name']+" "+request.POST['last_name'] )
+                signUp.save()
+                signUp = SignUp()   
+        else:
+            signUp = SignUp()
+            
+        return render (request,'html/register.html',{'signUp':signUp})
     else:
         return HttpResponseRedirect("/")
 

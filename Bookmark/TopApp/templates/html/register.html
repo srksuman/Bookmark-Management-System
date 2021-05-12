@@ -23,58 +23,94 @@
         <div class="forms-container">
           <div class="signin-signup">
             
-            <form>
-            
+            <form action="" class="sign-in-form" method="post" novalidate>
+             {% csrf_token %}
+             <h2 class="title">Sign Un</h2>
               <div class="input-field">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="First Name" />
+                {{signUp.username}} 
               </div>
-              
+              <div class="text-danger">
+              {{signUp.username.errors|striptags}}
+              </div>
               <div class="input-field">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Last Name" />
+               {{signUp.first_name}}
               </div>
+
+<div class="text-danger">
+ {{signUp.first_name.errors|striptags}}
+</div>
+            <div class="input-field">
+                <i class="fas fa-user"></i>
+                  {{signUp.last_name}} 
+              </div>
+
+<div class="text-danger">
+{{signUp.last_name.errors|striptags}}
+</div>
               <div class="input-field">
                 <i class="fas fa-envelope"></i>
-                <input type="email" placeholder="Email" />
+                {{signUp.email}}
+              </div>
+              <div class="text-danger">
+               {{signUp.email.errors|striptags}}
               </div>
               <div class="input-field">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Password" />
+               {{signUp.password1}} 
               </div>
+<div class="text-danger">
+{{signUp.password1.errors|striptags}}
+</div>
               <div class="input-field">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Confirm Password" />
+                 {{signUp.password2}} 
               </div>
+<div class="text-danger">
+{{signUp.password2.errors|striptags}}
+</div>
 
+            <div class="text-danger">
+              {% for error in signUp.non_field_errors %} {{error}} {% endfor %}
+            </div>
 
               <input type="submit" class="btn" value="Sign up" />
-              <p class="social-text">Or Sign up with social platforms</p>
+                </form>
+                <div class="text-center bg-success text-white mx-5">
+                {% if messages %}
+  {% for msg in messages  %}
+  {{msg}}
+  {% endfor %}
+  {% endif %}
+                </div>
+              <p class="social-text text-center">Or Sign up with social platforms</p>
 
                 
 
                <div class="col-md-12">
                 <ul class="social-network social-circle">
-                    <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                    {% comment %} <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li> {% endcomment %}
                     <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google"></i></a></li>
                 </ul>
             </div> 
 
-            </form>
+          
           </div>
         </div>
   
         <div class="panels-container">
           <div class="panel left-panel">
             <div class="content">
-              <h3>New here ?</h3>
+              <h3>Login in ?</h3>
               <p>
-              Create your account
+              Hurrly up
               </p>
-              <button class="btn transparent" id="sign-up-btn">
+              <a href="{% url 'loginNew' %}" class="btn transparent" id="sign-up-btn">Sign In</a>
+              {% comment %} <button class="btn transparent" id="sign-up-btn">
                 Sign up
-              </button>
+              </button> {% endcomment %}
             </div>
             <img src="img1.svg" class="image" alt="" />
           </div>
