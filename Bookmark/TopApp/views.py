@@ -219,6 +219,22 @@ def registerFunction(request):
 
 def main_user_view_function(request):
     if not request.user.is_authenticated:
-        return render(request,"html/user_view.html")
+        folder_name = AddFolder.objects.filter(public=True)
+        # print(folder_name)
+        folderNmme_url_dict = {}
+        for foldername in folder_name:
+            folderNm = foldername
+            urls_name = AddBookmark.objects.filter(folderId=folderNm)
+            folderNmme_url_dict[folderNm]=urls_name
+            # print(foldername.folderName)
+            # print(urls_name.ur)
+        print(folderNmme_url_dict)
+        for fn in folderNmme_url_dict:
+            print("suman")
+            print(folderNmme_url_dict.get(fn))
+        # print(urls_name)
+        # print(folder_name.user_token)
+
+        return render(request,'html/user_view.html',{"foldernameList":folderNmme_url_dict})
     else:
-        return HttpResponseRedirect("/")
+        return HttpResponseRedirect('/')

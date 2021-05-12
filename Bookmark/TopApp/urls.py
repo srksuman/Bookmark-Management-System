@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 urlpatterns = [
-     path('',views.signInSignUp,name='signInSignUp'),
+#      path('',views.signInSignUp,name='signInSignUp'),
       path('mainPage/',views.mainPage,name="mainpage"),
       path('logout/',views.logout_function,name="logout"),
       path('changePassword/',views.changePassword,name="changepassword"),
@@ -13,7 +13,6 @@ urlpatterns = [
       path('deleteFolder/<int:id_folder>/',views.deleteFolder,name='deleteFolder'),
       path('loginNew/',views.loginFunction,name= "loginNew"),
       path('registerNew/',views.registerFunction, name= "registerNew"),
-      path('userview/',views.main_user_view_function, name="userview")
-
+      path('',views.main_user_view_function, name="userview")
 
 ]
