@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load socialaccount %} {% providers_media_js %}
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -63,11 +64,7 @@
             />
              
             </form>
-             {% if messages %}
-  {% for msg in messages  %}
-  {{msg}}
-  {% endfor %}
-  {% endif %}
+             
             <p class="social-text text-center">Or Sign in with social platforms</p>
 
             <div class="col-md-12">
@@ -86,6 +83,7 @@
                   <a href="#" class="icoGoogle text-center" title="Google +"
                     ><i class="fa fa-google"></i
                   ></a>
+                  <a href="{%  provider_login_url 'google' %}">Google</a>
                 </li>
               </ul>
             </div>
@@ -100,7 +98,7 @@
           <div class="content">
             <h3>New here ?</h3>
             <p>Create your account</p>
-            <button class="btn transparent" id="sign-up-btn">Sign up</button>
+            <a href="{% url 'registerNew' %}" class="btn transparent" id="sign-up-btn">Sign Up</a>
           </div>
           <img src="{% static 'images/img1.svg' %}" class="image" alt="" />
         </div>
