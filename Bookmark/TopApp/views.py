@@ -104,7 +104,6 @@ def editProfile(request):
     else:
         return HttpResponseRedirect('/')
 
-
 def addBookMark(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -126,7 +125,6 @@ def addBookMark(request):
         return render(request,'html/addBookmark.html',{'folder':folderForm,'foldername':name})
     else:
         return HttpResponseRedirect('/login/')
-
 
 def bookMarks(request,id):
     if request.user.is_authenticated:
@@ -192,3 +190,22 @@ def deleteFolder(request,id_folder):
             return HttpResponseRedirect("/addBookmark/")
     else:
         return HttpResponseRedirect("/login/")
+
+def loginFunction(request):
+    if not request.user.is_authenticated:
+        if request.method == 'POST': 
+                signIn = AuthenticationFormLogin(request=request,data=request.POST)
+                if signIn.is_valid():
+                    urss = signIn.cleaned_data['username']
+                    pwdd = signIn.cleaned_data['password']
+                    user = authenticate(username=urss,password=pwdd)
+                    if user is not None:
+                        messages.success(request,"Login successfull")
+                        login(request,user)
+                        return HttpResponseRedirect('/mainPage/')
+        else:
+            signIn = AuthenticationFormLogin()
+        
+        return render(request,"html/login.html",{'signIn':signIn})
+    else:
+        return HttpResponseRedirect("/")

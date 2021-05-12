@@ -11,6 +11,7 @@ urlpatterns = [
       path('deleteUrl/<int:id_folder>/<int:id_url>',views.deleteUrl,name='deleteUrl'),
       path('updateurl/<int:id_folder>/<int:id_url>/<str:label>/',views.updateUrl,name='updateurl'),
       path('deleteFolder/<int:id_folder>/',views.deleteFolder,name='deleteFolder'),
+      path('loginNew/',views.loginFunction,name= "loginNew")
 
 
 ]
