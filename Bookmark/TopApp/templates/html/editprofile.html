@@ -13,18 +13,33 @@
       <i class="fas fa-bars" id="btn"></i>
       <i class="fas fa-times" id="cancel"></i>
     </label>
-    <div class="sidebar">
-    <header>
-    <a href="{% url 'mainpage' %}">BOOKMARK</a>
-    </header>
-  <ul>
-    <li><a href="{% url 'editProfile' %}"><i class="fas fa-user"></i>Edit Profile</a></li>
-    <li><a href="{% url 'addBookmark' %}"><i class="fas fa-bookmark"></i>Add Bookmark</a></li>
-    <li><a href="{% url 'changepassword' %}"><i class="fas fa-lock"></i>Change Password</a></li>
-    <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
-
-</ul>
-</div>
+   <div class="sidebar">
+      <header>
+        <a href="{% url 'mainpage' %}">BOOKMARK</a>
+      </header>
+      <ul>
+        <li>
+          <a href="{% url 'editProfile' %}"
+            ><i class="fas fa-user"></i>Edit Profile</a
+          >
+        </li>
+        <li>
+          <a href="{% url 'addBookmark' %}"
+            ><i class="fas fa-bookmark"></i>Add Bookmark</a
+          >
+        </li>
+        <li>
+          <a href="{% url 'changepassword' %}"
+            ><i class="fas fa-lock"></i>Change Password</a
+          >
+        </li>
+        <li>
+          <a href="{% url 'logout' %}"
+            ><i class="fas fa-sign-out-alt"></i>Logout</a
+          >
+        </li>
+      </ul>
+    </div>
 
 
 
