@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/signcss.css' %}" />
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+          <form action="" class="sign-in-form" method="post" novalidate>
+            {% csrf_token %}
+            <h2 class="title">Sign in</h2>
+
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              {{signIn.username}} 
+            </div>
+            <div class="text-danger">
+            {{signIn.username.errors|striptags}}
+            </div>
+
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              {{signIn.password}} 
+            </div>
+
+            <div class="text-danger">
+            {{signIn.password.errors|striptags}}
+            </div>
+           <div class="text-danger">
+           {% for error in  signIn.non_field_errors  %}
+         {{error}}
+  {% endfor %}
+           </div>
+            <input
+              type="submit"
+              value="Login"
+              class="btn solid"
+              name="signin"
+            />
+             
+            </form>
+             {% if messages %}
+  {% for msg in messages  %}
+  {{msg}}
+  {% endfor %}
+  {% endif %}
+            <p class="social-text text-center">Or Sign in with social platforms</p>
+
+            <div class="col-md-12">
+              <ul class="social-network social-circle">
+                {% comment %} <li>
+                  <a href="#" class="icoFacebook" title="Facebook"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                </li>
+                <li>
+                  <a href="#" class="icoTwitter" title="Twitter"
+                    ><i class="fa fa-twitter"></i
+                  ></a>
+                </li> {% endcomment %}
+                <li>
+                  <a href="#" class="icoGoogle text-center" title="Google +"
+                    ><i class="fa fa-google"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          
+           
+          
+        </div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>New here ?</h3>
+            <p>Create your account</p>
+            <button class="btn transparent" id="sign-up-btn">Sign up</button>
+          </div>
+          <img src="{% static 'images/img1.svg' %}" class="image" alt="" />
+        </div>
+        
+    <script src="https://code.jquery.com/jquery-3.5.1.js" 
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
+            crossorigin="anonymous"></script>
+<script>
+ 
+    <script src="{% static 'js/signjavascript.js' %}"></script>
+  </body>
+</html>
+

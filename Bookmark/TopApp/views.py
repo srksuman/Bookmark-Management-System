@@ -104,7 +104,6 @@ def editProfile(request):
     else:
         return HttpResponseRedirect('/')
 
-
 def addBookMark(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -126,7 +125,6 @@ def addBookMark(request):
         return render(request,'html/addBookmark.html',{'folder':folderForm,'foldername':name})
     else:
         return HttpResponseRedirect('/login/')
-
 
 def bookMarks(request,id):
     if request.user.is_authenticated:
@@ -192,3 +190,51 @@ def deleteFolder(request,id_folder):
             return HttpResponseRedirect("/addBookmark/")
     else:
         return HttpResponseRedirect("/login/")
+
+def loginFunction(request):
+    if not request.user.is_authenticated:
+        if request.method == 'POST': 
+                signIn = AuthenticationFormLogin(request=request,data=request.POST)
+                if signIn.is_valid():
+                    urss = signIn.cleaned_data['username']
+                    pwdd = signIn.cleaned_data['password']
+                    user = authenticate(username=urss,password=pwdd)
+                    if user is not None:
+                        messages.success(request,"Login successfull")
+                        login(request,user)
+                        return HttpResponseRedirect('/mainPage/')
+        else:
+            signIn = AuthenticationFormLogin()
+        
+        return render(request,"html/login.html",{'signIn':signIn})
+    else:
+        return HttpResponseRedirect("/")
+
+def registerFunction(request):
+    if not request.user.is_authenticated:
+        return render(request,"html/register.html")
+    else:
+        return HttpResponseRedirect("/")
+
+
+def main_user_view_function(request):
+    if not request.user.is_authenticated:
+        folder_name = AddFolder.objects.filter(public=True)
+        # print(folder_name)
+        folderNmme_url_dict = {}
+        for foldername in folder_name:
+            folderNm = foldername
+            urls_name = AddBookmark.objects.filter(folderId=folderNm)
+            folderNmme_url_dict[folderNm]=urls_name
+            # print(foldername.folderName)
+            # print(urls_name.ur)
+        print(folderNmme_url_dict)
+        for fn in folderNmme_url_dict:
+            print("suman")
+            print(folderNmme_url_dict.get(fn))
+        # print(urls_name)
+        # print(folder_name.user_token)
+
+        return render(request,'html/user_view.html',{"foldernameList":folderNmme_url_dict})
+    else:
+        return HttpResponseRedirect('/')
