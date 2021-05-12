@@ -209,3 +209,16 @@ def loginFunction(request):
         return render(request,"html/login.html",{'signIn':signIn})
     else:
         return HttpResponseRedirect("/")
+
+def registerFunction(request):
+    if not request.user.is_authenticated:
+        return render(request,"html/register.html")
+    else:
+        return HttpResponseRedirect("/")
+
+
+def main_user_view_function(request):
+    if not request.user.is_authenticated:
+        return render(request,"html/user_view.html")
+    else:
+        return HttpResponseRedirect("/")

@@ -29,8 +29,8 @@
   <body>
     <div class="container">
       <div class="forms-container">
-        <div class="signin-signup">
-          <form action="" class="sign-in-form" method="post" novalidate>
+        {% comment %} <div class="signin-signup"> {% endcomment %}
+          
             {% csrf_token %}
             <h2 class="title">Sign in</h2>
 
@@ -51,27 +51,9 @@
               name="signin"
             />
             </form>
-            <p class="social-text">Or Sign in with social platforms</p>
+           
 
-            <div class="col-md-12">
-              <ul class="social-network social-circle">
-                <li>
-                  <a href="#" class="icoFacebook" title="Facebook"
-                    ><i class="fa fa-facebook"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="#" class="icoTwitter" title="Twitter"
-                    ><i class="fa fa-twitter"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="#" class="icoGoogle" title="Google +"
-                    ><i class="fa fa-google"></i
-                  ></a>
-                </li>
-              </ul>
-            </div>
+            
           
           <form action="" class="sign-up-form" method="post" id = "task-form" novalidate >
             {% csrf_token %}
@@ -156,62 +138,14 @@
             alt=""
           />
         </div>
-      </div>
+      {% comment %} </div> {% endcomment %}
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.js" 
           integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
             crossorigin="anonymous"></script>
 <script>
- <script type="text/javascript">
-    $(document).on('submit','#task-form',function(e){
-        e.preventDefault();
-        $.ajax({
-            type:'POST',
-            url:'/',
-            data:
-            {
-              username:$("#id_username").val(),
-                first_name:$("#id_first_name").val(),
-                last_name:$("#id_last_name").val(),
-                email:$("#id_email").val(),
-                password1:$("#id_password1").val(),
-                password2:$("#id_password2").val(),
-                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
-            },
-            success:function(){
-                  alert('Saved');
-                    }
-            })
-        });
-</script>
+ 
     <script src="{% static 'js/signjavascript.js' %}"></script>
   </body>
 </html>
 
-{% comment %} <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-
-
-
-  <form action="" method="post">
-  {% csrf_token %}
-  {{signUp}}
-  <input type="submit" value="submit" name='signup'>
-  </form>
-
-
-
-  <form action="" method="post">
-  {% csrf_token %}
-  {{signIn}}
-  <input type="submit" value="submit" name='signin'>
-  </form>
-</body>
-</html> {% endcomment %}
