@@ -16,6 +16,7 @@ urlpatterns = [
       path('',views.main_user_view_function, name="userview"),
       path('favUrl/<int:id_folder>/<int:id_url>',views.favouriteFunction,name = "favUrl"),
       path('favouriteList/',views.favouriteList, name="favouriteList"),
+      path('updateEdit/<int:id_folder>',views.update_edit_folder,name="updateEdit")
 
     #   path('favourite/<int:id_url>/<int:id_fol>',views.favouriteFucntion,name="favourite")
 

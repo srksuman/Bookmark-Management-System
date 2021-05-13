@@ -124,7 +124,13 @@
               <div class="col-12">
                 <div class="card-title">
                   <a href="{% url 'bookmarks' name.ids %}">
-              <div class="name" style="margin-right: 100%;"><b>{{name.folderName}}</b></div></a>
+              <div class="name" style="margin-right: 100%;"><h5>{{name.folderName}}{% if name.public %}
+              <i class="far fa-dot-circle fa-sm" style="color:blue"></i>
+              {% endif %}</h5>
+              
+              
+                
+              </div></a>
 
                   
                 </div>
@@ -144,10 +150,15 @@
                     <form action="{% url 'deleteFolder' name.ids %}" method="post" >
                     {% csrf_token %}
                     
-                     <button type="submit" class="buttons-folders" style="width:100px">Delete</button>
+                     <button type="submit" style="width:100px">Delete</button>
                  
                     </form>
-                    <button style="width:100px" >Edit</button>
+    
+<button type="button" style="width:100px">
+    <a href="{% url 'updateEdit' name.ids %}" style="color:black">Edit</a>
+</button>
+
+                   
                   </div>
               </div>
             </div>

@@ -290,3 +290,25 @@ def favouriteList(request):
 
 # def error_404(request,exception):
 #     return render(request,'error.html')
+
+def update_edit_folder(request,id_folder):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            folder_name = request.POST['rename']
+            visiblity1 = request.POST.get('check')
+            if visiblity1 == 'on':
+                visiblity1 = True
+            else:
+                visiblity1 = False
+            
+            print(visiblity1)
+
+            AddFolder.objects.filter(pk=id_folder).update(public=visiblity1)
+            AddFolder.objects.filter(pk=id_folder).update(folderName=folder_name)
+            AddFolder.objects.filter(pk=id_folder).update(folderCreatedTime=timezone.now())
+            return HttpResponseRedirect('/addBookmark/')
+        else:
+            folder_data = AddFolder.objects.get(pk=id_folder)
+            return render(request,'html/editfoldername.html',{"fName":folder_data.folderName,"visiblity":folder_data.public})
+    else:
+        HttpResponseRedirect("/")
