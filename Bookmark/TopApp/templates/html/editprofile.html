@@ -5,14 +5,11 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/editprofile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
   </head>
   <body>
-    <input type="checkbox" id="check">
-    <label for="check">
-      <i class="fas fa-bars" id="btn"></i>
-      <i class="fas fa-times" id="cancel"></i>
-    </label>
+    
    <div class="sidebar">
       <header>
         <a href="{% url 'mainpage' %}">BOOKMARK</a>
@@ -30,7 +27,7 @@
         </li>
         <li>
           <a href="{% url 'changepassword' %}"
-            ><i class="fas fa-lock"></i>Change Password</a
+            ><i class="fas fa-lock"></i>Reset Password</a
           >
         </li>
         <li>

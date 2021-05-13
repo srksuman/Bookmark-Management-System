@@ -31,6 +31,22 @@
           <div class="table-wrapper-scroll-y my-custom-scrollbar">
            <div class="card-header">The list of URL</div>
              <div class="card-body">
+
+             
+            {% if messages %}
+{% for msg in messages  %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{msg}}!!</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+  {% endfor %}
+  {% endif %}
+
+
+
+  
+               
             
             <table class="table table-dark table-hover table-bordered">
   <thead>

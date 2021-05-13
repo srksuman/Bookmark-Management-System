@@ -11,6 +11,7 @@ from django.utils import timezone
 from bs4 import BeautifulSoup
 from .forms import AuthenticationFormLogin,PasswordChangeFormUser
 import requests
+import urllib3
 
 def signInSignUp(request):
     if not request.user.is_authenticated:
@@ -143,12 +144,21 @@ def bookMarks(request,id):
             if urlForm.is_valid():
                 bookmarkLabel = urlForm.cleaned_data['bookmarkLabel']
                 bookmarkUrl = urlForm.cleaned_data['bookmarkUrl']
-                get_data = requests.get(bookmarkUrl)
-                soup = BeautifulSoup(get_data.content,'html.parser')
-                bookmarkTitle = soup.title.get_text()
-                save_bookmark = AddBookmark(folderId=folderId,bookmarkLabel=bookmarkLabel,bookmarkUrl=bookmarkUrl,bookmarkTitle=bookmarkTitle)
-                save_bookmark.save()
-                urlForm =AddBookmarkForm()
+                http = urllib3.PoolManager()
+                r = http.request('GET', bookmarkUrl)
+                
+                if r.status == 200:
+                    print(r.status)
+                    get_data = requests.get(bookmarkUrl)
+                    soup = BeautifulSoup(get_data.content,'html.parser')
+                    bookmarkTitle = soup.title.get_text()
+                    save_bookmark = AddBookmark(folderId=folderId,bookmarkLabel=bookmarkLabel,bookmarkUrl=bookmarkUrl,bookmarkTitle=bookmarkTitle)
+                    save_bookmark.save()
+                    urlForm =AddBookmarkForm()
+                else:
+                    print(r.status)
+                    print("suamn")
+                    messages.error(request,"The URL you are trying to mark-> " +bookmarkUrl+" <-dosent exists!!" )
         else:
             urlForm = AddBookmarkForm()
         return render (request,'html/bookmarks.html',{'id':id,'addUrls':urlForm,'showBookmarks':show_present_bookmarks})
@@ -267,18 +277,19 @@ def main_user_view_function(request):
 #         return HttpResponseRedirect("/")
 
 def favouriteFunction(request,id_folder,id_url):
-    if request.method == 'POST':
-        print("suman raj khanal")
-        
-        get_fav = AddBookmark.objects.get(ids=id_url)
-        print(get_fav.fav)
-        if get_fav.fav == False:
-            AddBookmark.objects.filter(pk=id_url).update(fav=True)
-        else:
-            AddBookmark.objects.filter(pk=id_url).update(fav=False)
-        print(get_fav.fav)
-        url_redirection = f'/bookmarks/{id_folder}/'
-        return HttpResponseRedirect(url_redirection)
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            get_fav = AddBookmark.objects.get(ids=id_url)
+            print(get_fav.fav)
+            if get_fav.fav == False:
+                AddBookmark.objects.filter(pk=id_url).update(fav=True)
+            else:
+                AddBookmark.objects.filter(pk=id_url).update(fav=False)
+            print(get_fav.fav)
+            url_redirection = f'/bookmarks/{id_folder}/'
+            return HttpResponseRedirect(url_redirection)
+    else:
+        return HttpResponseRedirect("/")
 
 def favouriteList(request):
     if request.user.is_authenticated:
@@ -300,13 +311,20 @@ def update_edit_folder(request,id_folder):
                 visiblity1 = True
             else:
                 visiblity1 = False
-            
-            print(visiblity1)
-
-            AddFolder.objects.filter(pk=id_folder).update(public=visiblity1)
-            AddFolder.objects.filter(pk=id_folder).update(folderName=folder_name)
-            AddFolder.objects.filter(pk=id_folder).update(folderCreatedTime=timezone.now())
-            return HttpResponseRedirect('/addBookmark/')
+            all_objects = AddFolder.objects.all()
+            flag = 0
+            for obj in all_objects:
+                if obj.folderName == folder_name:
+                    flag+=1
+            if flag == 0:
+                AddFolder.objects.filter(pk=id_folder).update(public=visiblity1)
+                AddFolder.objects.filter(pk=id_folder).update(folderName=folder_name)
+                AddFolder.objects.filter(pk=id_folder).update(folderCreatedTime=timezone.now())
+                return HttpResponseRedirect('/addBookmark/')
+            else:
+                messages.warning(request,"Folder already exists with this name " + folder_name)
+                url_path = f"/updateEdit/{id_folder}"
+                return HttpResponseRedirect(url_path)
         else:
             folder_data = AddFolder.objects.get(pk=id_folder)
             return render(request,'html/editfoldername.html',{"fName":folder_data.folderName,"visiblity":folder_data.public})

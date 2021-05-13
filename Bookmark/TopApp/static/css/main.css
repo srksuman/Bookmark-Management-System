@@ -11,10 +11,14 @@ body {
 .sidebar {
   position: fixed;
   left: -250px;
-  width: 250px;
+  width: 270px;
   height: 100%;
   background: #080808a9;
-  transition: all .5s ease;
+  
+ overflow-x: hidden;
+  z-index: 1;
+  top: 0;
+  left: 0;
 }
 .sidebar header {
   font-size: 22px;
@@ -37,9 +41,9 @@ body {
   border-top: 1px solid rgba(255,255,255,.1);
   transition: .4s;
 }
-ul li:hover a{
+/* ul li:hover a{
   padding-left: 50px;
-}
+} */
 .sidebar ul a i{
   margin-right: 16px;
 }
