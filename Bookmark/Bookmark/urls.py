@@ -16,8 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+import TopApp
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('TopApp.urls')),
     path('accounts/', include('allauth.urls')),
+    
 ]
+# handler404 = TopApp.views.error_404
