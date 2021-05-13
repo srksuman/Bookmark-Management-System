@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from .forms import SignUp,AddBookmarkForm,AddFolderForm
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -129,6 +129,9 @@ def addBookMark(request):
 def bookMarks(request,id):
     if request.user.is_authenticated:
         folderId_side = AddFolder.objects.filter(ids = id)
+    
+        # for nm in get_fav_list:
+        #     print(nm.fav)
         folderId=''
         for particular in folderId_side:
             folderId = particular
@@ -247,3 +250,43 @@ def main_user_view_function(request):
         return render(request,'html/user_view.html',{"foldernameList":folderNmme_url_dict})
     else:
         return HttpResponseRedirect('/')
+
+# def fav_lsit(request):
+#     pass
+
+# def favouriteFucntion(request,id_url,id_fol):
+#     if request.user.is_authenticated:
+#         fav = get_object_or_404(AddBookmark,ids=id_url)
+#         if fav.favourite.filter(id= request.user.id).exists:
+#             fav.favourite.remove(request.user)
+#         else:
+#             fav.favourite.add(request.user)
+#         redir = f"/bookmarks/{id_fol}/"
+#         return HttpResponseRedirect(redir)
+#     else:
+#         return HttpResponseRedirect("/")
+
+def favouriteFunction(request,id_folder,id_url):
+    if request.method == 'POST':
+        print("suman raj khanal")
+        
+        get_fav = AddBookmark.objects.get(ids=id_url)
+        print(get_fav.fav)
+        if get_fav.fav == False:
+            AddBookmark.objects.filter(pk=id_url).update(fav=True)
+        else:
+            AddBookmark.objects.filter(pk=id_url).update(fav=False)
+        print(get_fav.fav)
+        url_redirection = f'/bookmarks/{id_folder}/'
+        return HttpResponseRedirect(url_redirection)
+
+def favouriteList(request):
+    if request.user.is_authenticated:
+        get_fav_list = AddBookmark.objects.filter(fav = True)
+        return render(request,'html/favourite.html',{'fav_list':get_fav_list})
+    else:
+        return HttpResponseRedirect("/")
+
+
+# def error_404(request,exception):
+#     return render(request,'error.html')

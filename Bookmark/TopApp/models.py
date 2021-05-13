@@ -20,3 +20,7 @@ class AddBookmark(models.Model):
     bookmarkLabel = models.CharField(max_length=100)
     bookmarkTitle = models.CharField(max_length =300)
     bookmarkUrl = models.URLField()
+    fav = models.BooleanField("public",default=False)
+    # favourite = models.ManyToManyField(User,blank=True, default=None,related_name='favourite' )
+
+

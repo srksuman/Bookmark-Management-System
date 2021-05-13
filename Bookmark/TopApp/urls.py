@@ -13,6 +13,10 @@ urlpatterns = [
       path('deleteFolder/<int:id_folder>/',views.deleteFolder,name='deleteFolder'),
       path('loginNew/',views.loginFunction,name= "loginNew"),
       path('registerNew/',views.registerFunction, name= "registerNew"),
-      path('',views.main_user_view_function, name="userview")
+      path('',views.main_user_view_function, name="userview"),
+      path('favUrl/<int:id_folder>/<int:id_url>',views.favouriteFunction,name = "favUrl"),
+      path('favouriteList/',views.favouriteList, name="favouriteList"),
+
+    #   path('favourite/<int:id_url>/<int:id_fol>',views.favouriteFucntion,name="favourite")
 
 ]

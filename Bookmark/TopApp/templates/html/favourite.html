@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/favourite.css' %}" />
+
+    <title>favourites</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <div class="card-header">The list of favourite URL</div>
+          <div class="card-body">
+            <table class="table table-dark table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Title</th>
+                  <th scope="col">Label</th>
+                  <th scope="col">URL</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                    {% for shows in fav_list  %}
+                   
+                    <br>
+                   
+                <tr>
+                  <td> {{shows.bookmarkUrl}}</td>
+                  <td>{{shows.bookmarkLabel}}</td>
+                  <td><input type="text" value="{{shows.bookmarkUrl}}" id={{shows.ids}} class="bg-dark text-white"></td>
+                    <td >
+                   <button class="btn btn-primary rounded-pill " onclick="myFunction({{shows.ids}})" onmouseout="outFunc()" class="tooltip"> COPY </button>
+
+                    <button class="btn btn-info text-dark rounded-pill" >  <a href="{{shows.bookmarkUrl}}" target="_blank" id="urlgotoback" style="color: aliceblue;">GO TO</a> </button>
+                    {% comment %} <button
+                      class="btn btn-danger rounded-pill"
+                      style="width: 100px"
+                    >
+                      Favourite
+                    </button> {% endcomment %}
+                  </td>
+                </tr>
+                 {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="goback">
+        <a href="{% url 'addBookmark' %}"
+          ><i class="far fa-arrow-alt-circle-left"></i
+        ></a>
+        <p>go back</p>
+      </div>
+    </div>
+     <script src=" {% static 'js/copyText.js' %} "></script>
+  </body>
+</html>

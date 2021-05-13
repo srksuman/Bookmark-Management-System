@@ -15,6 +15,7 @@
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
+    
 
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -85,24 +86,47 @@
 
 
       <div class="container2">
-       {% for name in foldername %}
+      
         <div class="card mt-5 border-5 pt-2 active pb-0 px-3">
           <div class="card-body">
             <div class="row">
               <div class="col-12">
                 <div class="card-title">
-                  <a href="{% url 'bookmarks' name.ids %}"
-                    ><div class="name"><b>{{name.folderName}}</b></div></a
-                  >
+                  <a href="{% url 'favouriteList'  %}">
+              <div class="name"><b>Favourite</b></div></a>
 
                   <div class="btns d-inline %}">
                   
-                    <form action="{% url 'deleteFolder' name.ids %}" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="Delete" >
-                    </form>
-                    <a class="button" href=" " role="button">Edit</a>
                   </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <h4 class="card-subtitle mb-2 text-muted">
+                  <p class="card-text text-muted small">
+                    <i class="fas fa-star"></i>
+                    <span class="vl mr-2 ml-0"></span> Created by
+                    <span class="font-weight-bold">Bookmark Management Team</span> 
+                  </p>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+
+
+       {% for name in foldername %}
+      
+        <div class="card mt-5 border-5 pt-2 active pb-0 px-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="card-title">
+                  <a href="{% url 'bookmarks' name.ids %}">
+              <div class="name" style="margin-right: 100%;"><b>{{name.folderName}}</b></div></a>
+
+                  
                 </div>
               </div>
 
@@ -113,7 +137,18 @@
                     <span class="vl mr-2 ml-0"></span> Created by
                     <span class="font-weight-bold"> {{name.userFullname}}</span> {{name.folderCreatedTime}}
                   </p>
+                 
                 </h4>
+                 <div class="" style="display:inline; float:right;margin-top:-20px;margin-right:20px">
+                  
+                    <form action="{% url 'deleteFolder' name.ids %}" method="post" >
+                    {% csrf_token %}
+                    
+                     <button type="submit" class="buttons-folders" style="width:100px">Delete</button>
+                 
+                    </form>
+                    <button style="width:100px" >Edit</button>
+                  </div>
               </div>
             </div>
           </div>

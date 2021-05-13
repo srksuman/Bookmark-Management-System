@@ -52,6 +52,8 @@
       <button class="btn btn-info text-dark rounded-pill" >  <a href="{{shows.bookmarkUrl}}" target="_blank" id="urlgotoback" style="color: aliceblue;">GO TO</a> </button>
       <button class="btn btn-secondary rounded-pill">  UPDATE </button>
 
+<div class="d-inline">
+
     <form action="{% url 'updateurl' id shows.ids shows.bookmarkLabel  %}" method="post">
         {% csrf_token %}
         <input type="text" value={{shows.bookmarkUrl}} id={{shows.ids}}  class="inputTypeUrl" name="urlgets">
@@ -64,7 +66,23 @@
 {% csrf_token %}
 <input type="submit" value="Delete" class="btn btn-danger rounded-pill">
 </form>
+
+{% if shows.fav %}
+<form action="{% url 'favUrl' id shows.ids  %}" method="POST">
+{% csrf_token %}
+<input type="submit" value="Favourite" class="btn btn-danger  btn-small">
+{% else %}
+<form action="{% url 'favUrl' id shows.ids  %}" method="POST">
+{% csrf_token %}
+<input type="submit" value="Favourite" class="btn btn-outline-danger  btn-small">
+
+{% endif %}
+</form>
+</div>
       {% comment %} <button >  DELETE </button> {% endcomment %}
+{% comment %} <a  href="{% url 'favourite' shows.ids id  %}" class="btn btn-outline-warning">Faviourite</a> {% endcomment %}
+
+      
       </td>
     </tr>
     {% endfor %}
