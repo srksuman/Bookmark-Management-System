@@ -129,6 +129,9 @@ def addBookMark(request):
 def bookMarks(request,id):
     if request.user.is_authenticated:
         folderId_side = AddFolder.objects.filter(ids = id)
+    
+        # for nm in get_fav_list:
+        #     print(nm.fav)
         folderId=''
         for particular in folderId_side:
             folderId = particular
