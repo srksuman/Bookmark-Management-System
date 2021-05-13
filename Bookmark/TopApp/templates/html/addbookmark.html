@@ -85,15 +85,44 @@
 
 
       <div class="container2">
+      
+        <div class="card mt-5 border-5 pt-2 active pb-0 px-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="card-title">
+                  <a href="{% url 'favouriteList'  %}">
+              <div class="name"><b>Favourite</b></div></a>
+
+                  <div class="btns d-inline %}">
+                  
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <h4 class="card-subtitle mb-2 text-muted">
+                  <p class="card-text text-muted small">
+                    <i class="fas fa-star"></i>
+                    <span class="vl mr-2 ml-0"></span> Created by
+                    <span class="font-weight-bold">Bookmark Management Team</span> 
+                  </p>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+
+
        {% for name in foldername %}
         <div class="card mt-5 border-5 pt-2 active pb-0 px-3">
           <div class="card-body">
             <div class="row">
               <div class="col-12">
                 <div class="card-title">
-                  <a href="{% url 'bookmarks' name.ids %}"
-                    ><div class="name"><b>{{name.folderName}}</b></div></a
-                  >
+                  <a href="{% url 'bookmarks' name.ids %}">
+              <div class="name"><b>{{name.folderName}}</b></div></a>
 
                   <div class="btns d-inline %}">
                   
