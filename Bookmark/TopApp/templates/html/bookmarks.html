@@ -64,7 +64,16 @@
 {% csrf_token %}
 <input type="submit" value="Delete" class="btn btn-danger rounded-pill">
 </form>
+
+<form action="{% url 'favUrl' id shows.ids  %}" method="POST">
+{% csrf_token %}
+<input type="submit" value="Favourite" class="btn btn-danger  btn-small">
+</form>
+
       {% comment %} <button >  DELETE </button> {% endcomment %}
+{% comment %} <a  href="{% url 'favourite' shows.ids id  %}" class="btn btn-outline-warning">Faviourite</a> {% endcomment %}
+
+      
       </td>
     </tr>
     {% endfor %}
