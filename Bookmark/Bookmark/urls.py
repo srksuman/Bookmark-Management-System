@@ -23,5 +23,7 @@ urlpatterns = [
     path('',include('TopApp.urls')),
     path('accounts/', include('allauth.urls')),
     
+    
 ]
 # handler404 = TopApp.views.error_404
+# handler404 = 'TopApp.views.error_404'

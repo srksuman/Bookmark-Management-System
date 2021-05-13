@@ -299,8 +299,7 @@ def favouriteList(request):
         return HttpResponseRedirect("/")
 
 
-# def error_404(request,exception):
-#     return render(request,'error.html')
+
 
 def update_edit_folder(request,id_folder):
     if request.user.is_authenticated:
@@ -330,3 +329,7 @@ def update_edit_folder(request,id_folder):
             return render(request,'html/editfoldername.html',{"fName":folder_data.folderName,"visiblity":folder_data.public})
     else:
         HttpResponseRedirect("/")
+
+
+# def error_404(request,exception):
+#     return render(request,'html/error.html')

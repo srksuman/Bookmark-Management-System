@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Girassol&display=swap');
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    display: grid;
+    place-items: center;
+    background: rgb(26, 25, 25);
+    color: #fff
+}
+
+.not-found {
+    font-size: 220px !important;
+    font-weight: 700;
+    font-family: 'Girassol', cursive
+}
+
+.oops-text {
+    background: #fff;
+    padding: 10px;
+    color: #000;
+    border-radius: 5px
+}
+
+.not-found-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: 20px
+}
+
+.send {
+    color: #fff;
+    background-color: #198f36;
+    border-color: #35dc7b;
+    border-radius: 54px;
+    font-family: 'Manrope', sans-serif;
+    box-shadow: 2px 3px #35dc43
+}
+
+.send:hover {
+    color: #fff;
+    background-color: #198f36;
+    border-color: #35dc67;
+    border-radius: 54px;
+    box-shadow: 2px 3px #67df43
+}
