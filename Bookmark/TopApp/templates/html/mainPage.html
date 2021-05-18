@@ -18,7 +18,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="{% static 'css/landing.css' %}" />
-    <title>Hello, world!</title>
+    <title>Home</title>
   </head>
   <body>
     <div class="sidebar">
@@ -63,7 +63,7 @@
   {% endfor %}
   {% endif %}
         </div>
-          <h1>WELCOME TO BOOKMARK MANAGEMENT SYSTEM</h1>
+          <h1 style="font-family: 'Poppins', sans-serif;">BOOKMARK MANAGEMENT SYSTEM</h1>
         </div>
       </div>
       <div class="forms-container">
@@ -73,24 +73,10 @@
             {% for key, value in foldernameList.items %}
               <div class="card">
                 <div class="card-header">
-                                    {% comment %} {{foldernameList}} {% endcomment %}
-                                                      {% comment %} 
-                                      
-
-                                      <br>
-                                        {% for v in value  %}
-                                        {{v.bookmarkUrl}}
-                                        {% endfor %}
-                                        <br>
-
-                                    {% endfor %} {% endcomment %}
                   <h3>{{key.folderName}}</h3>
                   <p>
                     {{key.userFullname}} 
                     
-                   
-                      
-                    {% comment %} <span class="dot"> </span> {% endcomment %}
                     <span class="vl mr-2 ml-0"></span> {{key.folderCreatedTime}}
                   </p>
                 </div>
@@ -99,27 +85,21 @@
                     <table class="table table-dark table-hover table-bordered">
                       <thead>
                         <tr>
-                          <th scope="col">Label</th>
+                          <th scope="col">Title</th>
                           <th scope="col">Label</th>
                           <th scope="col">URL</th>
                           <th>ACTIONS</th>
                         </tr>
                       </thead>
                       <tbody>
-                      {% for v in value  %}
-                                       
-                                       
+                      {% for v in value  %}           
                         <tr>
-                          <td>this is auto-generate label</td>
-                          <td>this is writing label</td>
+                          <td>{{v.bookmarkTitle}}</td>
+                          <td>{{v.bookmarkLabel}}</td>
                           <td> <input type="text" value="{{v.bookmarkUrl}}" id={{v.ids}} class="bg-dark text-white"></td>
                           <td>
-                           
-
-<button class="btn btn-primary rounded-pill " onclick="myFunction({{v.ids}})" onmouseout="outFunc()" class="tooltip"> COPY </button>
-      <button class="btn btn-info text-dark rounded-pill" >  <a href="{{v.bookmarkUrl}}" target="_blank" id="urlgotoback" style="color: aliceblue;">GO TO</a> </button>
-
-
+                          <button class="btn btn-primary rounded-pill " onclick="myFunction({{v.ids}})" onmouseout="outFunc()" class="tooltip"> COPY </button>
+                                <button class="btn btn-info text-dark rounded-pill" >  <a href="{{v.bookmarkUrl}}" target="_blank" id="urlgotoback" style="color: aliceblue;">GO TO</a> </button>
                           </td>
                         </tr>
                          {% endfor %}

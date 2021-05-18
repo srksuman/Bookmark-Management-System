@@ -16,7 +16,19 @@
     <div class="px-5 py-5">
         <h1 class="not-found">404</h1> <span class="oops-text">Oops! page not found</span>
         <h4 class="not-found-text mt-4">The page you were looking for doesnot exist! you may have mistyped <br> the address or the page may have moved</h4>
-        <div class="text-center mt-4 mb-5"> <a href="{% url 'userview' %}" class="btn btn-success send px-3"><i class="fa fa-long-arrow-left mr-1"></i> Return to main page</a> </div>
+        
+        {% if user.is_authenticated %}
+          <div class="text-center mt-4 mb-5"> <a href="{% url 'mainpage' %}" class="btn btn-success send px-3"><i class="fa fa-long-arrow-left mr-1"></i> Return To Home Page</a>
+           </div>
+           
+          
+          {% endif %}
+          {% if not user.is_authenticated %}
+          <div class="text-center mt-4 mb-5"> <a href="{% url 'userview' %}" class="btn btn-success send px-3"><i class="fa fa-long-arrow-left mr-1"></i> Return To Main Page</a> </div>
+        {% endif %}
+
+         
+        
     </div>
 </div>
 

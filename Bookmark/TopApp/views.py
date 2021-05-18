@@ -13,57 +13,50 @@ from .forms import AuthenticationFormLogin,PasswordChangeFormUser
 import requests
 import urllib3
 
-def signInSignUp(request):
-    if not request.user.is_authenticated:
-        if request.method=='POST':
-            if request.POST.get('signup'):
-                signUp = SignUp(request.POST)
-                if signUp.is_valid():
-                    messages.success(request,"Account is created successfully " + request.POST['first_name']+" "+request.POST['last_name'])
-                    signUp.save()
-                    return HttpResponseRedirect('/')
-            else:
-                signUp = SignUp()
+# def signInSignUp(request):
+#     if not request.user.is_authenticated:
+#         if request.method=='POST':
+#             if request.POST.get('signup'):
+#                 signUp = SignUp(request.POST)
+#                 if signUp.is_valid():
+#                     messages.success(request,"Account is created successfully " + request.POST['first_name']+" "+request.POST['last_name'])
+#                     signUp.save()
+#                     return HttpResponseRedirect('/')
+#             else:
+#                 signUp = SignUp()
                
              
-            if request.POST.get('signin'): 
-                signIn = AuthenticationFormLogin(request=request,data=request.POST)
-                if signIn.is_valid():
-                    urss = signIn.cleaned_data['username']
-                    pwdd = signIn.cleaned_data['password']
-                    user = authenticate(username=urss,password=pwdd)
-                    if user is not None:
-                        messages.success(request,"Login successfull")
-                        login(request,user)
-                        return HttpResponseRedirect('/mainPage/')
-            else:
-                signIn = AuthenticationFormLogin()
-        else:
-            signUp = SignUp()
-            signIn = AuthenticationFormLogin()
-        return render (request,'html/SignUp_SignIn.html',{'signUp':signUp,'signIn':signIn})
-    else:
-        return HttpResponseRedirect('/mainPage/')
+#             if request.POST.get('signin'): 
+#                 signIn = AuthenticationFormLogin(request=request,data=request.POST)
+#                 if signIn.is_valid():
+#                     urss = signIn.cleaned_data['username']
+#                     pwdd = signIn.cleaned_data['password']
+#                     user = authenticate(username=urss,password=pwdd)
+#                     if user is not None:
+#                         messages.success(request,"Login successfull")
+#                         login(request,user)
+#                         return HttpResponseRedirect('/mainPage/')
+#             else:
+#                 signIn = AuthenticationFormLogin()
+#         else:
+#             signUp = SignUp()
+#             signIn = AuthenticationFormLogin()
+#         return render (request,'html/SignUp_SignIn.html',{'signUp':signUp,'signIn':signIn})
+#     else:
+#         return HttpResponseRedirect('/mainPage/')
 
 
 def mainPage(request):
     if request.user.is_authenticated:
         folder_name = AddFolder.objects.filter(public=True)
-        # print(folder_name)
         folderNmme_url_dict = {}
         for foldername in folder_name:
             folderNm = foldername
             urls_name = AddBookmark.objects.filter(folderId=folderNm)
             folderNmme_url_dict[folderNm]=urls_name
-            # print(foldername.folderName)
-            # print(urls_name.ur)
         print(folderNmme_url_dict)
         for fn in folderNmme_url_dict:
-            print("suman")
             print(folderNmme_url_dict.get(fn))
-        # print(urls_name)
-        # print(folder_name.user_token)
-
         return render(request,'html/mainPage.html',{"foldernameList":folderNmme_url_dict})
     else:
         return HttpResponseRedirect('/')
@@ -129,6 +122,9 @@ def addBookMark(request):
 
 def bookMarks(request,id):
     if request.user.is_authenticated:
+        pass_the_id = f"bookmark{id}"
+        print(pass_the_id)
+        print("afagjgkafjgafasfagja")
         folderId_side = AddFolder.objects.filter(ids = id)
     
         # for nm in get_fav_list:
@@ -157,11 +153,10 @@ def bookMarks(request,id):
                     urlForm =AddBookmarkForm()
                 else:
                     print(r.status)
-                    print("suamn")
                     messages.error(request,"The URL you are trying to mark-> " +bookmarkUrl+" <-dosent exists!!" )
         else:
             urlForm = AddBookmarkForm()
-        return render (request,'html/bookmarks.html',{'id':id,'addUrls':urlForm,'showBookmarks':show_present_bookmarks})
+        return render (request,'html/bookmarks.html',{'id':id,'addUrls':urlForm,'showBookmarks':show_present_bookmarks,'pass_id':pass_the_id})
     else:
         return HttpResponseRedirect('/')
 
@@ -180,13 +175,18 @@ def updateUrl(request,id_folder,id_url,label):
         if request.method == 'POST':
             folder = AddFolder.objects.get(pk=id_folder)
             urlget = request.POST['urlgets']
-            
+            # http = urllib3.PoolManager()
+            # r = http.request('GET', urlget)
+                
+            # if r.status == 200:
             get_data = requests.get(urlget)
             soup = BeautifulSoup(get_data.content,'lxml')
             bookmarkTitle = soup.title.get_text()
             keys = AddBookmark(ids=id_url,folderId=folder,bookmarkLabel=label,bookmarkTitle=bookmarkTitle,bookmarkUrl=urlget)
             keys.save()
             
+                # messages.error(request,"The URL you are trying to mark-> " +urlget+" <-dosent exists!!" )
+
             updateForm = AddBookmarkForm()
             redirect =  f'/bookmarks/{id_folder}/'
             return HttpResponseRedirect(redirect)
@@ -311,11 +311,15 @@ def update_edit_folder(request,id_folder):
             else:
                 visiblity1 = False
             all_objects = AddFolder.objects.all()
+            particular_fodler_name = AddFolder.objects.get(pk=id_folder)
+            flag1=0
+            if particular_fodler_name.folderName == folder_name:
+                flag1=1
             flag = 0
             for obj in all_objects:
                 if obj.folderName == folder_name:
                     flag+=1
-            if flag == 0:
+            if flag == 0 or flag1 == 1:
                 AddFolder.objects.filter(pk=id_folder).update(public=visiblity1)
                 AddFolder.objects.filter(pk=id_folder).update(folderName=folder_name)
                 AddFolder.objects.filter(pk=id_folder).update(folderCreatedTime=timezone.now())
@@ -331,5 +335,5 @@ def update_edit_folder(request,id_folder):
         HttpResponseRedirect("/")
 
 
-# def error_404(request,exception):
-#     return render(request,'html/error.html')
+def error_404(request,exception):
+    return render(request,'html/error.html')

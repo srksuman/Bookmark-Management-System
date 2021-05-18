@@ -13,8 +13,15 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/beforelogin.css' %}">
     <title>Main page</title>
+    <style>
+    body{
+      font-family: 'Poppins', sans-serif !important;
+    }
+    </style>
   </head>
   <body>
 
@@ -30,8 +37,14 @@
   <div class="container-fluid">
       <div class="container">
         <div class="content">
-          <h1>WELCOME TO BOOKMARK MANAGEMENT SYSTEM</h1>
-        </div>
+          {% comment %} <h2 class="title text-center" style="font-family: 'Poppins', sans-serif;
+    }">BOOKMARK MANAGEMENT SYSTEM</h2>
+        </div> {% endcomment %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert" style="font-family: 'Poppins', sans-serif;">
+  <strong 
+    }">Welcome to Bookmark Management System. </strong> We Never Remember Links, Only Bookmarks!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
       </div>
       <div class="forms-container">
         <div class="signin-signup">
@@ -40,24 +53,9 @@
             {% for key, value in foldernameList.items %}
               <div class="card">
                 <div class="card-header">
-                                    {% comment %} {{foldernameList}} {% endcomment %}
-                                                      {% comment %} 
-                                      
-
-                                      <br>
-                                        {% for v in value  %}
-                                        {{v.bookmarkUrl}}
-                                        {% endfor %}
-                                        <br>
-
-                                    {% endfor %} {% endcomment %}
                   <h3>{{key.folderName}}</h3>
                   <p>
                     {{key.userFullname}} 
-                    
-                   
-                      
-                    {% comment %} <span class="dot"> </span> {% endcomment %}
                     <span class="vl mr-2 ml-0"></span> {{key.folderCreatedTime}}
                   </p>
                 </div>
@@ -66,27 +64,21 @@
                     <table class="table table-dark table-hover table-bordered">
                       <thead>
                         <tr>
-                          <th scope="col">Label</th>
+                          <th scope="col">Title</th>
                           <th scope="col">Label</th>
                           <th scope="col">URL</th>
                           <th>ACTIONS</th>
                         </tr>
                       </thead>
                       <tbody>
-                      {% for v in value  %}
-                                       
-                                       
+                      {% for v in value  %}          
                         <tr>
-                          <td>this is auto-generate label</td>
-                          <td>this is writing label</td>
+                          <td>{{v.bookmarkTitle}}</td>
+                          <td>{{v.bookmarkLabel}}</td>
                           <td> <input type="text" value="{{v.bookmarkUrl}}" id={{v.ids}} class="bg-dark text-white"></td>
                           <td>
-                           
-
-<button class="btn btn-primary rounded-pill " onclick="myFunction({{v.ids}})" onmouseout="outFunc()" class="tooltip"> COPY </button>
-      <button class="btn btn-info text-dark rounded-pill" >  <a href="{{v.bookmarkUrl}}" target="_blank" id="urlgotoback" style="color: aliceblue;">GO TO</a> </button>
-
-
+                            <button class="btn btn-primary rounded-pill my-2" onclick="myFunction({{v.ids}})" onmouseout="outFunc()" class="tooltip" style="width:70px; "> COPY </button>
+                            <button class="btn btn-info text-dark rounded-pill" >  <a href="{{v.bookmarkUrl}}" target="_blank" id="urlgotoback" style="color: aliceblue;" >GO TO</a> </button>
                           </td>
                         </tr>
                          {% endfor %}

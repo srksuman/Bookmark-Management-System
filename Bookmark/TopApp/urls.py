@@ -1,7 +1,10 @@
+
 from django.urls import path
 from . import views
+
 urlpatterns = [
 #      path('',views.signInSignUp,name='signInSignUp'),
+      
       path('mainPage/',views.mainPage,name="mainpage"),
       path('logout/',views.logout_function,name="logout"),
       path('changePassword/',views.changePassword,name="changepassword"),
@@ -16,8 +19,7 @@ urlpatterns = [
       path('',views.main_user_view_function, name="userview"),
       path('favUrl/<int:id_folder>/<int:id_url>',views.favouriteFunction,name = "favUrl"),
       path('favouriteList/',views.favouriteList, name="favouriteList"),
-      path('updateEdit/<int:id_folder>',views.update_edit_folder,name="updateEdit")
-
-    #   path('favourite/<int:id_url>/<int:id_fol>',views.favouriteFucntion,name="favourite")
+      path('updateEdit/<int:id_folder>',views.update_edit_folder,name="updateEdit"),
+     
 
 ]

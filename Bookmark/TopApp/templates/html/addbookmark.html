@@ -20,6 +20,7 @@
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    
 
     <title>Add Folder</title>
   </head>
@@ -124,7 +125,7 @@
               <div class="col-12">
                 <div class="card-title">
                   <a href="{% url 'bookmarks' name.ids %}">
-              <div class="name" style="margin-right: 100%;"><h5>{{name.folderName}}{% if name.public %}
+              <div class="name"><h5 style=" text-transform: capitalize">{{name.folderName}}{% if name.public %}
               <i class="far fa-dot-circle fa-sm" style="color:blue"></i>
               {% endif %}</h5>
               
@@ -145,18 +146,19 @@
                   </p>
                  
                 </h4>
-                 <div class="" style="display:inline; float:right;margin-top:-20px;margin-right:20px">
+                 <div class="" style="display:inline; float:right;margin-top:-30px;margin-right:20px">
                   
                     <form action="{% url 'deleteFolder' name.ids %}" method="post" >
                     {% csrf_token %}
-                    
-                     <button type="submit" style="width:100px">Delete</button>
-                 
+                     <button type="submit" style="width:100px; background:red; color:white; font-size:10px; padding:5px; border-radius:4px; font-weight:bold;  font-weight: 400;
+                      line-height: 1.5;">Delete</button>
                     </form>
     
-<button type="button" style="width:100px">
-    <a href="{% url 'updateEdit' name.ids %}" style="color:black">Edit</a>
-</button>
+
+                    <button type="button" style="width:100px; background:#0d6efd;    font-weight: 400;
+        line-height: 1.5; color:white; font-size:10px; padding:5px; border-radius:4px; font-weight:bold; margin-top:4px">
+                        <a href="{% url 'updateEdit' name.ids %}" style="color:white">Edit</a>
+                    </button>
 
                    
                   </div>

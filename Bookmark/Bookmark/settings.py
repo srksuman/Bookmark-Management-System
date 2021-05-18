@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'ki23jczevx0yzmy$hdt+j)y-pedik+_co3u7!r$e@t!vpnq55p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
@@ -126,6 +126,15 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+if DEBUG:
+    STATICFILES_DIRS = BASE_DIR, 'static'
+else:
+    STATIC_ROOT = BASE_DIR, 'static'
+
+  
+
+MEDIA_ROOT = BASE_DIR, 'media'
 # CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 AUTHENTICATION_BACKENDS = [
@@ -138,3 +147,4 @@ AUTHENTICATION_BACKENDS = [
 ]
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/mainPage/'
+

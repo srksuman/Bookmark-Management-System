@@ -26,7 +26,7 @@
             
             <form action="" class="sign-in-form" method="post" novalidate>
              {% csrf_token %}
-             <h2 class="title">Sign Un</h2>
+             <h2 class="title">Register</h2>
               <div class="input-field">
                 <i class="fas fa-user"></i>
                 {{signUp.username}} 
@@ -38,18 +38,17 @@
                 <i class="fas fa-user"></i>
                {{signUp.first_name}}
               </div>
-
-<div class="text-danger">
- {{signUp.first_name.errors|striptags}}
-</div>
+            <div class="text-danger">
+            {{signUp.first_name.errors|striptags}}
+            </div>
             <div class="input-field">
                 <i class="fas fa-user"></i>
                   {{signUp.last_name}} 
               </div>
 
-<div class="text-danger">
-{{signUp.last_name.errors|striptags}}
-</div>
+                <div class="text-danger">
+                {{signUp.last_name.errors|striptags}}
+                </div>
               <div class="input-field">
                 <i class="fas fa-envelope"></i>
                 {{signUp.email}}
@@ -61,16 +60,16 @@
                 <i class="fas fa-lock"></i>
                {{signUp.password1}} 
               </div>
-<div class="text-danger">
-{{signUp.password1.errors|striptags}}
-</div>
+              <div class="text-danger">
+              {{signUp.password1.errors|striptags}}
+              </div>
               <div class="input-field">
                 <i class="fas fa-lock"></i>
                  {{signUp.password2}} 
               </div>
-<div class="text-danger">
-{{signUp.password2.errors|striptags}}
-</div>
+              <div class="text-danger">
+              {{signUp.password2.errors|striptags}}
+              </div>
 
             <div class="text-danger">
               {% for error in signUp.non_field_errors %} {{error}} {% endfor %}
@@ -80,10 +79,10 @@
                 </form>
                 <div class="text-center bg-success text-white mx-5">
                 {% if messages %}
-  {% for msg in messages  %}
-  {{msg}}
-  {% endfor %}
-  {% endif %}
+              {% for msg in messages  %}
+              {{msg}}
+              {% endfor %}
+              {% endif %}
                 </div>
               <p class="social-text text-center">Or Sign up with social platforms</p>
 

@@ -51,7 +51,7 @@
             <table class="table table-dark table-hover table-bordered">
   <thead>
     <tr>
-      <th scope="col">Label</th>
+      <th scope="col">Title</th>
       <th scope="col">Label</th>
       <th scope="col">URL</th>
       <th>ACTIONS</th>
@@ -68,9 +68,9 @@
       <button class="btn btn-info text-dark rounded-pill" >  <a href="{{shows.bookmarkUrl}}" target="_blank" id="urlgotoback" style="color: aliceblue;">GO TO</a> </button>
 
 
-      <button class="btn btn-secondary rounded-pill" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="margin-top:7px; margin-bottom:10px">  UPDATE </button> 
+      <button class="btn btn-secondary rounded-pill" data-bs-toggle="collapse" data-bs-target="#{{pass_id}}{{shows.ids}}" aria-expanded="false" aria-controls="collapseExample" style="margin-top:7px; margin-bottom:10px">  UPDATE </button> 
       
-      <div class="collapse" id="collapseExample">
+      <div class="collapse" id="{{pass_id}}{{shows.ids}}">
   <div class="card card-body">
      <form action="{% url 'updateurl' id shows.ids shows.bookmarkLabel  %}" method="post">
         {% csrf_token %}
